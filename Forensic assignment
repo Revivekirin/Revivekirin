@@ -1,0 +1,57 @@
+import zipfile
+import docx
+import openpyxl
+from pptx import Presentation
+
+def parse_docx(file_path):
+    if file_path.lower().endswith(".docx"):
+        with zipfile.ZipFile(file_path, "r") as archive:
+            for file_info in archive.infolist():
+                if "word/document.xml" in file_info.filename:
+                    with archive.open(file_info.filename) as docx_file:
+                        document = docx.Document(docx_file)
+                        for paragraph in document.paragraphs:
+                            print(paragraph.text)
+        return "DOCX파일입니다."
+    else:
+        return "DOCX파일이 아닙니다."
+    
+def parse_xlsx(file_path):
+    if file_path.lower().endswith(".xlsx"):
+        with zipfile.ZipFile(file_path, 'r') as archive:
+            for file_info in archive.infolist():
+                if "x1/worksheets/sheet1.xml" in file_info.filename:
+                    with archive.open(file_info.filename) as xlsx_file:
+                        workbook = openpyxl.load_workbook(xlsx_file)
+                        sheet = workbook.active
+                        for row in sheet.iter_rows():
+                            for cell in row:
+                                print(cell.value)
+        return "XLSX파일입니다."
+    else:
+        return "XLSX파일이 아닙니다."
+   
+def parse_pptx(file_path):
+    if file_path.lower().endswith(".pptx"):
+        with zipfile.ZipFile(file_path, 'r') as archive:
+            for file_info in archive.infolist():
+                if "ppt/slides/slide1.xml" in file_info.filename:
+                    with archive.open(file_info.filename) as pptx_file:
+                        presentation = Presentation(pptx_file)
+                        for slide in presentation.slides:
+                            for shape in slide.shapes:
+                                if hasattr(shape, "text"):
+                                    print(shape.text)
+        return "PPTX파일입니다."
+    else:
+        return "PPTX파일이 아닙니다."
+
+file_path = input()
+if parse_docx(file_path) == "DOCX파일입니다.":
+    result = parse_docx(file_path)
+elif parse_xlsx(file_path) == "XLSX파일입니다.":
+    result = parse_xlsx(file_path)
+elif parse_pptx(file_path) == "PPTX파일입니다.":
+    result = parse_pptx(file_path)
+
+print(result)
