@@ -1,7 +1,7 @@
 - 👋 Hi, I’m @Revivekirin
 - 👀 I’m interested in ...
 - 🌱 I’m currently AI
-- 💞️ I’m looking to collaborate on white haat school
+- 💞️ I’m looking to collaborate on 
 - 📫 How to reach me ...
 
 <!---
