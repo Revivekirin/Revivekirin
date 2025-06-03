@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @Revivekirin
 - 👀 I’m interested in ...
-- 🌱 I’m currently learning cybersecurity
+- 🌱 I’m currently AI
 - 💞️ I’m looking to collaborate on white haat school
 - 📫 How to reach me ...
 
