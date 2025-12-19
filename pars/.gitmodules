@@ -1,0 +1,3 @@
+[submodule "d4rl_repo"]
+	path = d4rl_repo
+	url = https://github.com/Farama-Foundation/D4RL
