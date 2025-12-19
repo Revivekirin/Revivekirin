@@ -7,15 +7,15 @@ This implementation is built on top of [Penalizing Infeasible Actions and Reward
 ## Results (antmaze-umaze-v0)
 
 <p align="center">
-  <img src="figures/antmaze-umaze-v0/learning_curves_step_50000.png" width="420" /><br/>
-  <sub><b>(a)</b> Learning curve</sub>
+  <img src="figures/antmaze-umaze-v0 (hinge+square)/learning_curves_step_50000.png" width="420" /><br/>
+  <sub><b>(a)</b> Learning curve (50000)</sub>
 </p>
 <p align="center">
-  <img src="figures/antmaze-umaze-v0/q_distribution_step_50000.png" width="420" />
-  <img src="figures/antmaze-umaze-v0/q_distribution_step_150000.png" width="420" /><br/>
-  <sub><b>(b)</b> Q distribution &nbsp;&nbsp; <b>(c)</b> TD error</sub>
+  <img src="figures/antmaze-umaze-v0 (hinge+square)/learning_curves_step_50000.png" width="420" />
+  <img src="figures/antmaze-umaze-v0 (hinge+square)/q_distribution_step_150000.png" width="420" /><br/>
+  <sub><b>(b)</b> Q distribution (50000)&nbsp;&nbsp; <b>(c)</b> Q distribution (150000)</sub>
 </p>
 <p align="center">
-  <img src="figures/antmaze-umaze-v0/learning_curves_step_150000.png" width="420" /><br/>
-  <sub><b>(d)</b> Learning Curve</sub>
+  <img src="figures/antmaze-umaze-v0 (hinge+square)/learning_curves_step_150000.png" width="420" /><br/>
+  <sub><b>(d)</b> Learning Curve (150000)</sub>
 </p>
