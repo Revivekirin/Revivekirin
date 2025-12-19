@@ -60,10 +60,13 @@ class TD3BCAgent(flax.struct.PyTreeNode):
             batch['next_observations'], 
             actions=next_actions
         )
-        next_q = next_qs.min(axis=0)
+        # next_qs shape: (num_critics, batch_size)
+        next_q = next_qs.min(axis=0)  # Shape: (batch_size,)
 
         # TD target (standard Bellman backup)
-        target_q = batch['rewards'] + self.config['discount'] * batch['masks'] * next_q
+        rewards = batch['rewards'].squeeze(-1)  # Ensure (batch_size,)
+        masks = batch['masks'].squeeze(-1)  # Ensure (batch_size,)
+        target_q = rewards + self.config['discount'] * masks * next_q
         target_q = jax.lax.stop_gradient(target_q)
 
         # Current Q-values
@@ -72,15 +75,22 @@ class TD3BCAgent(flax.struct.PyTreeNode):
             actions=batch['actions'], 
             params=grad_params
         )
+        # q shape: (num_critics, batch_size)
         
-        # MSE loss
-        critic_loss = jnp.square(q - target_q).mean()
+        # MSE loss (broadcast target_q to match q)
+        target_q_broadcasted = jnp.broadcast_to(target_q[None, :], q.shape)
+        critic_loss = jnp.square(q - target_q_broadcasted).mean()
+        
+        # ID Q-values
+        q_mean = q.mean()
+        q_max = q.max()
+        q_min = q.min()
 
         info = {
             'critic_loss': critic_loss,
-            'q_mean': q.mean(),
-            'q_max': q.max(),
-            'q_min': q.min(),
+            'q_mean': q_mean,
+            'q_max': q_max,
+            'q_min': q_min,
             'target_q_mean': target_q.mean(),
         }
 
@@ -212,13 +222,13 @@ class TD3BCAgent(flax.struct.PyTreeNode):
 
         return self.replace(network=new_network, rng=new_rng), info
 
-    @jax.jit
+    @partial(jax.jit, static_argnames=('eval_mode',)) 
     def sample_actions(
         self,
         observations: jnp.ndarray,
         seed: jax.random.PRNGKey = None,
         temperature: float = 1.0,
-        eval_mode: bool = False,
+        eval_mode: bool = False,  # static argument
     ) -> jnp.ndarray:
         """Sample actions from the policy.
         
@@ -226,7 +236,7 @@ class TD3BCAgent(flax.struct.PyTreeNode):
             observations: Observations
             seed: Random seed for noise
             temperature: Temperature for exploration noise
-            eval_mode: If True, return deterministic actions
+            eval_mode: If True, return deterministic actions (must be static)
             
         Returns:
             Actions
@@ -244,7 +254,7 @@ class TD3BCAgent(flax.struct.PyTreeNode):
             actions = jnp.clip(actions + noise, -1, 1)
         
         return actions
-
+    
     @classmethod
     def create(
         cls,
