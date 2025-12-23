@@ -71,20 +71,20 @@ As a result:
 ### AntMaze (reference behavior)
 
 <p align="center">
-  <img src="figures/antmaze-umaze-v0_hinge_square/learning_curves_step_50000.png" width="420" />
-  <img src="figures/antmaze-umaze-v0_hinge_square/learning_curves_step_150000.png" width="420" /><br/>
+  <img src="assets/antmaze-umaze-v0_hinge_square/learning_curves_step_50000.png" width="420" />
+  <img src="assets/antmaze-umaze-v0_hinge_square/learning_curves_step_150000.png" width="420" /><br/>
   <sub><b>(a)</b> Learning curve (50k) &nbsp;&nbsp;&nbsp; <b>(b)</b> Learning curve (150k)</sub>
 </p>
 
 <p align="center">
-  <img src="figures/antmaze-umaze-v0_hinge_square/q_distribution_step_50000.png" width="420" />
-  <img src="figures/antmaze-umaze-v0_hinge_square/q_distribution_step_150000.png" width="420" /><br/>
+  <img src="assets/antmaze-umaze-v0_hinge_square/q_distribution_step_50000.png" width="420" />
+  <img src="assets/antmaze-umaze-v0_hinge_square/q_distribution_step_150000.png" width="420" /><br/>
   <sub><b>(c)</b> Q distribution (50k) &nbsp;&nbsp;&nbsp; <b>(d)</b> Q distribution (150k)</sub>
 </p>
 
 
 Observations:
-- clear Q-value separation between in-distribution and infeasible actions,
+- clear Q-value separation between in-distribution and infeasible actions (dataset-aligned infeasible),
 - low violation rate of `Q_infeasible < Q_min`,
 - PARS penalty aligns with environment-level infeasibility.
 
@@ -93,23 +93,23 @@ Observations:
 ### Robomimic + ACFQL (this work)
 
 <p align="center">
-  <img src="figures/square/media_images_custom_q_geometry_histogram_1000000_65b7a575432a3e176078.png" width="420" />
-  <img src="/home/robros/git/Revivekirin/pars/figures/square/Screenshot from 2025-12-23 14-18-00.png" width="420" /><br/>
+  <img src="assets/square/media_images_custom_q_geometry_histogram_1000000_65b7a575432a3e176078.png" width="420" />
+  <img src="/home/robros/git/Revivekirin/pars/assets/square/Screenshot from 2025-12-23 14-18-00.png" width="420" /><br/>
   <sub><b>(a)</b> Q-Distribution (50k) &nbsp;&nbsp;&nbsp; <b>(b)</b> Learning curve (150k)</sub>
 </p>
 
 <p align="center">
-  <img src="figures/square/Screenshot from 2025-12-23 14-18-07.png" width="420" />
-  <!-- <img src="figures/antmaze-umaze-v0_hinge_square/q_distribution_step_150000.png" width="420" /><br/> -->
-  <sub><b>(c)</b> Seperation/Gap (50k) &nbsp;&nbsp;&nbsp; <b>(d)</b> Q distribution (150k)</sub>
+  <img src="assets/square/Screenshot from 2025-12-23 14-18-07.png" width="420" />
+  <img src="assets/square/Screenshot from 2025-12-23 14-36-43.png" width="420" /><br/>
+  <sub><b>(c)</b> Seperation/Gap (50k) &nbsp;&nbsp;&nbsp; <b>(d)</b> Success rate</sub>
 </p>
 
 Observations:
 - `Q_ID` grows large due to long-horizon expert returns,
 - `Q_infeasible` remains near zero by construction,
-- violation rate remains high (~50%) but **does not correlate with task failure**,
+- violation rate is high(but also high variance) but **does not correlate with task failure**,
 - PARS penalty is frequently active without improving decision quality,
-- baseline ACFQL **outperforms ACFQL + PARS** in success rate.
+- baseline ACFQL **outperforms ACFQL + PARS** success rate is lower than original ACFQL baseline.
 
 ---
 
