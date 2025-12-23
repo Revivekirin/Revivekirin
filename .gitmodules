@@ -1,0 +1,3 @@
+[submodule "pars/qc-flow-priority-sampling"]
+	path = pars/qc-flow-priority-sampling
+	url = https://github.com/Revivekirin/qc-flow-priority-sampling.git

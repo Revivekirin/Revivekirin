@@ -5,3 +5,8 @@
 [submodule "robomimic"]
 	path = robomimic
 	url = https://github.com/ARISE-Initiative/robomimic.git
+
+
+[submodule "qc-flow-priority-sampling"]
+	path = qc-flow-priority-sampling
+	url = https://github.com/Revivekirin/qc-flow-priority-sampling.git
