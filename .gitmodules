@@ -1,3 +1,6 @@
 [submodule "pars/qc-flow-priority-sampling"]
 	path = pars/qc-flow-priority-sampling
 	url = https://github.com/Revivekirin/qc-flow-priority-sampling.git
+[submodule "pars/pars/robomimic"]
+	path = pars/pars/robomimic
+	url = https://github.com/ARISE-Initiative/robomimic.git
