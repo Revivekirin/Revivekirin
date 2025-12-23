@@ -94,7 +94,7 @@ Observations:
 
 <p align="center">
   <img src="assets/square/media_images_custom_q_geometry_histogram_1000000_65b7a575432a3e176078.png" width="420" />
-  <img src="/home/robros/git/Revivekirin/pars/assets/square/Screenshot from 2025-12-23 14-18-00.png" width="420" /><br/>
+  <img src="assets/square/Screenshot from 2025-12-23 14-18-00.png" width="420" /><br/>
   <sub><b>(a)</b> Q-Distribution (50k) &nbsp;&nbsp;&nbsp; <b>(b)</b> Learning curve (150k)</sub>
 </p>
 
