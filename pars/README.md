@@ -1,4 +1,4 @@
-# Trajectory-level Priority Sampling & PARS Analysis for Offline-to-Online RL
+# ACFQL & PARS Analysis for Offline-to-Online RL
 
 This repository investigates **trajectory-level priority sampling** and **PARS-style infeasible action penalization** in **offline-to-online reinforcement learning**, with a particular focus on **when and why value-side regularization can become redundant or harmful under strong policy priors**.
 
@@ -92,9 +92,17 @@ Observations:
 
 ### Robomimic + ACFQL (this work)
 
-<!-- TODO: Insert robomimic learning curves -->
-<!-- TODO: Insert Q_ID vs Q_infeasible distribution plots -->
-<!-- TODO: Insert violation ratio & penalty activation plots -->
+<p align="center">
+  <img src="figures/square/media_images_custom_q_geometry_histogram_1000000_65b7a575432a3e176078.png" width="420" />
+  <img src="/home/robros/git/Revivekirin/pars/figures/square/Screenshot from 2025-12-23 14-18-00.png" width="420" /><br/>
+  <sub><b>(a)</b> Q-Distribution (50k) &nbsp;&nbsp;&nbsp; <b>(b)</b> Learning curve (150k)</sub>
+</p>
+
+<p align="center">
+  <img src="figures/square/Screenshot from 2025-12-23 14-18-07.png" width="420" />
+  <!-- <img src="figures/antmaze-umaze-v0_hinge_square/q_distribution_step_150000.png" width="420" /><br/> -->
+  <sub><b>(c)</b> Seperation/Gap (50k) &nbsp;&nbsp;&nbsp; <b>(d)</b> Q distribution (150k)</sub>
+</p>
 
 Observations:
 - `Q_ID` grows large due to long-horizon expert returns,
