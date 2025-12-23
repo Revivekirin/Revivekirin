@@ -95,13 +95,13 @@ Observations:
 <p align="center">
   <img src="assets/square/media_images_custom_q_geometry_histogram_1000000_65b7a575432a3e176078.png" width="420" />
   <img src="assets/square/Screenshot from 2025-12-23 14-18-00.png" width="420" /><br/>
-  <sub><b>(a)</b> Q-Distribution (50k) &nbsp;&nbsp;&nbsp; <b>(b)</b> Learning curve (150k)</sub>
+  <sub><b>(a)</b> Q-Distribution &nbsp;&nbsp;&nbsp; <b>(b)</b> Q value mean</sub>
 </p>
 
 <p align="center">
   <img src="assets/square/Screenshot from 2025-12-23 14-18-07.png" width="420" />
   <img src="assets/square/Screenshot from 2025-12-23 14-36-43.png" width="420" /><br/>
-  <sub><b>(c)</b> Seperation/Gap (50k) &nbsp;&nbsp;&nbsp; <b>(d)</b> Success rate</sub>
+  <sub><b>(c)</b> Seperation/Gap &nbsp;&nbsp;&nbsp; <b>(d)</b> Success rate</sub>
 </p>
 
 Observations:
