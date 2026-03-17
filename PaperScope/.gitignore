@@ -1,0 +1,23 @@
+.env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+node_modules/
+dist/
+build/
+.next/
+
+# Database and uploaded data
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+*.sqlite3
+*.db

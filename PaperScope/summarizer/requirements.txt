@@ -1,0 +1,4 @@
+langchain-openai==0.0.8
+langchain-core==0.1.30
+python-dotenv==1.0.1
+sqlalchemy==2.0.25

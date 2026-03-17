@@ -1,0 +1,12 @@
+sources:
+  - name: arxiv
+    enabled: true
+    interval_hours: 24
+    keywords:
+      - "Large Language Models"
+      - "Reinforcement Learning"
+      - "Agentic AI"
+
+database:
+  type: sqlite
+  path: "../data/raw/papers.db"
