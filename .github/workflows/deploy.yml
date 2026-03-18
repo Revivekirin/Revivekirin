@@ -39,6 +39,9 @@ jobs:
           pip install -r crawler/requirements.txt
           pip install -r summarizer/requirements.txt
 
+      - name: Initialize Database
+        run: python backend/init_db.py
+
       - name: Run Crawler Pipeline
         run: python crawler/pipelines/arxiv_scraper.py
 
