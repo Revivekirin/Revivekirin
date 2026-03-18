@@ -49,7 +49,7 @@ jobs:
 
       - name: Run AI Summarizer
         env:
-          HUGGINGFACE_API_KEY: ${{ secrets.HUGGINGFACE_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python summarizer/processor.py
 
       - name: Clean up old DB records (Keep 5 days)
