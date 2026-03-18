@@ -1,0 +1,16 @@
+{
+  "target_keywords": [
+    "Reinforcement Learning",
+    "Quantization",
+    "RL",
+    "Multimodal",
+    "Federated Learning",
+    "Graph Neural Network",
+    "Robotics"
+  ],
+  "scraper_limits": {
+    "arxiv": 20,
+    "huggingface": 10,
+    "ieee": 10
+  }
+}

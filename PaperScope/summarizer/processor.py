@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from backend.database import SessionLocal
 from backend.models.paper import Paper
-from summarizer.models.openai_client import PaperSummarizer
+from summarizer.models.hf_client import PaperSummarizer
 
 def process_unsummarized_papers():
     """

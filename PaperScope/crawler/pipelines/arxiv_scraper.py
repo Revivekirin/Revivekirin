@@ -1,6 +1,7 @@
 import arxiv
 import sys
 import os
+import json
 from datetime import datetime
 
 # Add the project root to sys.path so we can import backend properly
@@ -88,6 +89,20 @@ def scrape_arxiv(keywords: list, max_results: int = 20):
         db.close()
 
 if __name__ == "__main__":
-    # Example execution
-    target_keywords = ["Large Language Models", "Agentic AI", "Reinforcement Learning"]
-    scrape_arxiv(target_keywords, max_results=10)
+    # Load keywords from centralized config
+    config_path = os.path.join(os.path.dirname(__file__), "..", "keywords.json")
+    try:
+        with open(config_path, "r", encoding="utf-8") as f:
+            config = json.load(f)
+            TARGET_KEYWORDS = config.get("target_keywords", [])
+            max_results = config.get("scraper_limits", {}).get("arxiv", 20)
+    except Exception as e:
+        print(f"Failed to load keywords config: {e}")
+        sys.exit(1)
+        
+    if not TARGET_KEYWORDS:
+        print("No target keywords found in config. Exiting.")
+        sys.exit(0)
+    
+    print(f"Starting arXiv scraper for keywords: {TARGET_KEYWORDS}")
+    scrape_arxiv(TARGET_KEYWORDS, max_results=max_results)
