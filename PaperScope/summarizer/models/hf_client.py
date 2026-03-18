@@ -12,8 +12,10 @@ class PaperSummarizer:
         else:
              genai.configure(api_key=self.api_key)
              
-        # Using Gemini 1.5 Flash - generous free tier (1500 req/day)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        # Using Gemini 1.5 Flash (latest) - generous free tier (1500 req/day)
+        # If it fails, we will dynamically fallback to gemini-pro inside summarize()
+        self.model = genai.GenerativeModel('gemini-1.5-flash-latest')
+        self.fallback_model = genai.GenerativeModel('gemini-pro')
 
     def summarize(self, title: str, abstract: str) -> str:
         """Generates a summary for the given paper abstract using Google Gemini API."""
@@ -28,7 +30,13 @@ Title: {title}
 Abstract: {abstract}"""
             
         try:
-            response = self.model.generate_content(prompt)
+            try:
+                response = self.model.generate_content(prompt)
+            except Exception as e:
+                # If 1.5-flash-latest fails (e.g. 404), fallback to gemini-pro
+                print(f"Fallback to gemini-pro due to: {e}")
+                response = self.fallback_model.generate_content(prompt)
+                
             summary = response.text.strip()
             return summary
         except Exception as e:
