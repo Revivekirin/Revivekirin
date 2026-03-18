@@ -14,10 +14,7 @@ export interface Paper {
   
   export async function fetchPapers(skip: number = 0, limit: number = 50): Promise<Paper[]> {
     try {
-      const response = await fetch(`${API_BASE_URL}/papers/?skip=${skip}&limit=${limit}`, {
-        // Fetch fresh data explicitly or rely on Next.js default cache
-        cache: 'no-store', 
-      });
+      const response = await fetch(`${API_BASE_URL}/papers/?skip=${skip}&limit=${limit}`);
       if (!response.ok) {
         throw new Error('Failed to fetch papers');
       }

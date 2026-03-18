@@ -1,0 +1,82 @@
+name: Daily PaperScope Pipeline & Deploy
+
+on:
+  schedule:
+    # Run at 02:00 AM UTC every day
+    - cron: '0 2 * * *'
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install -r crawler/requirements.txt
+          pip install -r summarizer/requirements.txt
+
+      - name: Run Crawler Pipeline
+        run: python crawler/pipelines/arxiv_scraper.py
+
+      - name: Run AI Summarizer
+        env:
+          HUGGINGFACE_API_KEY: ${{ secrets.HUGGINGFACE_API_KEY }}
+        run: python summarizer/processor.py
+
+      - name: Clean up old DB records (Keep 5 days)
+        run: python backend/cleanup.py 5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Start FastAPI Backend in background
+        run: |
+          uvicorn backend.main:app --host 0.0.0.0 --port 8000 &
+          echo $! > backend.pid
+          # Wait for the server to be ready
+          sleep 5
+
+      - name: Build Next.js Static Export
+        working-directory: ./frontend
+        run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:8000/api
+
+      - name: Stop FastAPI Backend
+        run: kill $(cat backend.pid)
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./frontend/out
