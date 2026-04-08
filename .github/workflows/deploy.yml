@@ -52,31 +52,8 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python summarizer/processor.py
 
-      - name: Clean up old DB records
-        run: |
-          python << 'EOF'
-          import sys
-          sys.path.append('./PaperScope')
-          
-          from backend.database import SessionLocal
-          from backend.models.paper import Paper
-          
-          db = SessionLocal()
-          total = db.query(Paper).count()
-          
-          if total >= 100:
-              print(f"DB has {total} papers, running cleanup...")
-              db.close()
-              exit(0)  
-          else:
-              print(f"DB has only {total} papers, skipping cleanup")
-              db.close()
-              exit(1)  
-          EOF
-          
-          if [ $? -eq 0 ]; then
-              python PaperScope/backend/cleanup.py 5
-          fi
+      - name: Clean up old DB records (Keep 5 days)
+        run: python backend/cleanup.py 5
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
