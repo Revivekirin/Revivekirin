@@ -18,7 +18,8 @@ def delete_old_papers(days: int = 5):
         print(f"Cleaning up papers older than: {cutoff_date.strftime('%Y-%m-%d %H:%M:%S')}")
         
         # Find old papers
-        old_papers = db.query(Paper).filter(Paper.published_date < cutoff_date)
+        #old_papers = db.query(Paper).filter(Paper.published_date < cutoff_date)
+        old_papers = db.query(Paper).filter(Paper.created_at < cutoff_date)
         count = old_papers.count()
         
         if count > 0:
